@@ -91,9 +91,7 @@ char	*ft_putnbr_base(int nbr, char *base)
 {
 	int		base_nbr;
 	long	long_nbr;
-	char	minus_sign;
 
-	minus_sign = '-';
 	long_nbr = (long) nbr;
 	if (!is_base_valid(base))
 		return (0);
@@ -117,7 +115,7 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 	error = 0;
 	nbr_int = ft_atoi_base(nbr, base_from, &error);
 	if (error)
-		return (0);
+		nbr_int = 0;
 	result = ft_putnbr_base(nbr_int, base_to);
 	return (result);
 }
