@@ -16,7 +16,7 @@ void	*ft_print_memory(void *addr, unsigned int size);
 
 int	main(void)
 {
-	char	anunciacao[] = "abcdadsadsdasdasdasdasda";
+	char	anunciacao[] = "abcda\0dsadsdasdasdasdasda\0";
 
-	ft_print_memory(anunciacao, 17);
+	ft_print_memory(anunciacao, 27);
 }
