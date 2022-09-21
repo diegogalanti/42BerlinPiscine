@@ -18,11 +18,11 @@ int	main(int argsc, char *args[])
 {
 	char	**result;
 	int		i;
-
 	if (argsc != 3)
-		return (0);
+		return (1);
 	result = ft_split(args[1], args[2]);
 	i = 0;
+	printf("got here 3\n");
 	while (result[i])
 	{
 		printf("Result = %s\n", result[i]);
@@ -30,5 +30,5 @@ int	main(int argsc, char *args[])
 		i++;
 	}
 	free(result);
-	return (1);
+	return (0);
 }

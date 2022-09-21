@@ -12,120 +12,97 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 
-int	ft_strlen(char *str)
+int in(char c, char *charset)
 {
-	int	iterator;
-	int	size;
-
-	iterator = 0;
-	size = 0;
-	while (str[iterator] != '\0')
+	int i;
+	i = -1;
+	while (charset[++i])
 	{
-		iterator++;
-		size++;
+		if (charset[i] == c)
+			return (1);
 	}
-	return (size);
+	return (0);
 }
 
-int	ft_strstr(char *str, char *to_find, char **output)
+int	ft_char_count(char *str, char *sep)
 {
 	int	str_i;
-	int	needle_i;
 	int	count;
+	int found_at;
 
-	needle_i = 0;
 	str_i = -1;
 	count = 1;
-	while (str_i++ < ft_strlen(str) && needle_i < ft_strlen(to_find))
+	found_at = -1;
+	while (str[++str_i])
 	{
-		if (to_find[needle_i] == str[str_i])
+		if (in(str[str_i], sep))
 		{
-			if (to_find[needle_i + 1] == 0)
-			{
-				if (*output == 0)
-					*output = &str[str_i + 1 - ft_strlen(to_find)];
-				count++;
-				needle_i = -1;
-			}
-			needle_i++;
+			if (str_i > (found_at + 1))
+					count++;
+				found_at = str_i;
 		}
-		else
-			needle_i = 0;
 	}
 	return (count);
 }
 
-int	get_size(char *str, char *charset)
+char *get_next_string(char *str, char *charset, int *start_pos)
 {
-	int		size_before;
-	int		size_after;
-	char	*leftover;
-
-	leftover = 0;
-	size_before = ft_strlen(str);
-	ft_strstr(str, charset, &leftover);
-	if (leftover == 0)
-		return (size_before);
-	size_after = ft_strlen(leftover);
-	if (size_before == size_after)
-		return (0);
-	return (size_before - size_after);
+	int end_pos;
+	char *result;
+	
+	end_pos = 0;
+	while (str[*start_pos] && in(str[*start_pos], charset))
+		(*start_pos)++;
+	printf("start_pos = %d\n", *start_pos);
+	end_pos = *start_pos;
+	while (str[end_pos] && !in(str[end_pos], charset))
+		end_pos++;
+	printf("end_pos = %d\n", end_pos);
+	result = malloc(end_pos - *start_pos + 1);
+	strncpy(result, &str[*start_pos], (end_pos - *start_pos) + 1);
+	result[(end_pos - *start_pos)] = 0;
+	*start_pos = end_pos + 1;
+	return (result);
 }
 
-char	*concatenate(int s_n_s, char *str, char *charset)
+int is_empty(char *str)
 {
-	char	*result;
-	int		i;
-	int		j;
+	int i;
 
-	result = malloc((s_n_s + ft_strlen(charset) * 2 + 1));
 	i = -1;
-	j = 0;
-	while (charset[++i])
+	while(str[++i])
 	{
-		result[j++] = charset[i];
+		if(str[i] != ' ' && str[i] != '\t')
+			return (0);
 	}
-	i = -1;
-	while (++i < s_n_s)
-	{
-		result[j] = str[i];
-		j++;
-	}
-	i = -1;
-	while (charset[++i])
-	{
-		result[j] = charset[i];
-		j++;
-	}
-	result[j] = 0;
-	return (result);
+	return (1);
 }
 
 char	**ft_split(char *str, char *charset)
 {
 	char	**result;
 	int		string_count;
-	int		s_n_s;
 	int		i;
-	char	*test;
+	int start_index;
+	int empty_count;
 
-	test = 0;
-	string_count = ft_strstr(str, charset, &test);
+	string_count = ft_char_count(str, charset);
 	result = malloc((string_count + 1) * 8);
+	printf("count = %d\n", string_count);
 	i = -1;
+	start_index = 0;
+	empty_count = 0;
 	while (++i < string_count)
 	{
-		s_n_s = get_size(str, charset);
-		if (s_n_s == 0)
+		result[i - empty_count] = get_next_string(str, charset, &start_index);
+		if (is_empty(result[i]))
 		{
-			string_count--;
-			i--;
-			str += ft_strlen(charset);
-			continue ;
+			empty_count++;
+			free(result[i]);
+			result[string_count-empty_count] = 0;
 		}
-		result[i] = concatenate(s_n_s, str, charset);
-		str += s_n_s + ft_strlen(charset);
 	}
 	result[string_count] = 0;
 	return (result);
