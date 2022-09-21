@@ -22,7 +22,6 @@ int	main(int argsc, char *args[])
 		return (1);
 	result = ft_split(args[1], args[2]);
 	i = 0;
-	printf("got here 3\n");
 	while (result[i])
 	{
 		printf("Result = %s\n", result[i]);

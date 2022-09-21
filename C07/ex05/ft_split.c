@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
-#include <stdio.h>
 #include <unistd.h>
-#include <string.h>
 
 int in(char c, char *charset)
 {
@@ -24,6 +22,24 @@ int in(char c, char *charset)
 			return (1);
 	}
 	return (0);
+}
+
+char	*ft_strncpy(char *dest, char *src, unsigned int n)
+{
+	unsigned int		iterator;
+
+	iterator = 0;
+	while (src[iterator] != '\0' && iterator < n)
+	{
+		dest[iterator] = src[iterator];
+		iterator++;
+	}
+	while (iterator < n)
+	{
+		dest[iterator] = '\0';
+		iterator++;
+	}
+	return (dest);
 }
 
 int	ft_char_count(char *str, char *sep)
@@ -55,13 +71,11 @@ char *get_next_string(char *str, char *charset, int *start_pos)
 	end_pos = 0;
 	while (str[*start_pos] && in(str[*start_pos], charset))
 		(*start_pos)++;
-	printf("start_pos = %d\n", *start_pos);
 	end_pos = *start_pos;
 	while (str[end_pos] && !in(str[end_pos], charset))
 		end_pos++;
-	printf("end_pos = %d\n", end_pos);
 	result = malloc(end_pos - *start_pos + 1);
-	strncpy(result, &str[*start_pos], (end_pos - *start_pos) + 1);
+	ft_strncpy(result, &str[*start_pos], (end_pos - *start_pos) + 1);
 	result[(end_pos - *start_pos)] = 0;
 	*start_pos = end_pos + 1;
 	return (result);
@@ -90,7 +104,6 @@ char	**ft_split(char *str, char *charset)
 
 	string_count = ft_char_count(str, charset);
 	result = malloc((string_count + 1) * 8);
-	printf("count = %d\n", string_count);
 	i = -1;
 	start_index = 0;
 	empty_count = 0;
