@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft.h                                               :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: digallar <digallar@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/22 16:16:18 by digallar          #+#    #+#             */
-/*   Updated: 2022/09/22 16:24:08 by digallar         ###   ########.fr       */
+/*   Created: 2022/09/22 17:07:24 by digallar          #+#    #+#             */
+/*   Updated: 2022/09/22 17:08:09 by digallar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_H
-# define FT_H
+#include <stdio.h>
+#include "ft_abs.h"
 
-void	ft_putchar(char c);
-void	ft_swap(int *a, int *b);
-void	ft_putstr(char *str);
-int		ft_strlen(char *str);
-int		ft_strcmp(char *s1, char *s2);
+int	main(void)
+{
+	int	value;
 
-#endif
+	value = 0;
+	printf("Absolute of value = %d is = %d\n", value, ABS(value));
+	value = 10;
+	printf("Absolute of value = %d is = %d\n", value, ABS(value));
+	value = -10;
+	printf("Absolute of value = %d is = %d\n", value, ABS(value));
+	return (1);
+}

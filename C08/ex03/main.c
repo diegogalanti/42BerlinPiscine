@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft.h                                               :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: digallar <digallar@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/22 16:16:18 by digallar          #+#    #+#             */
-/*   Updated: 2022/09/22 16:24:08 by digallar         ###   ########.fr       */
+/*   Created: 2022/09/22 17:09:32 by digallar          #+#    #+#             */
+/*   Updated: 2022/09/22 17:12:25 by digallar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_H
-# define FT_H
+#include "ft_point.h"
 
-void	ft_putchar(char c);
-void	ft_swap(int *a, int *b);
-void	ft_putstr(char *str);
-int		ft_strlen(char *str);
-int		ft_strcmp(char *s1, char *s2);
+void	set_point(t_point *point)
+{
+	point->x = 42;
+	point->y = 21;
+}
 
-#endif
+int	main(void)
+{
+	t_point	point;
+
+	set_point(&point);
+	return (0);
+}
