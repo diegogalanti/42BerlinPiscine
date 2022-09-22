@@ -6,10 +6,10 @@
 /*   By: digallar <digallar@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 13:57:06 by digallar          #+#    #+#             */
-/*   Updated: 2022/08/30 09:38:08 by digallar         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:32:39 by digallar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <unistd.h>
+
 #include <stdio.h>
 
 void	write_char_array(char *array, int size)
@@ -33,7 +33,7 @@ void	convert_long_to_hex_array(long long_nbr, char buffer[], int size)
 		convert_long_to_hex_array(long_nbr / 16, buffer, size - 1);
 }
 
-void	convert_charsarray_to_hex(char *array, char buf[], int size, int remaining)
+void	convert_charsarray_to_hex(char *array, char buf[], int size, int rem)
 {
 	int		i;
 	int		j;
@@ -42,15 +42,15 @@ void	convert_charsarray_to_hex(char *array, char buf[], int size, int remaining)
 	j = -1;
 	while (j < size - 1)
 	{
-			if (remaining-- == 0)
-				return ;
-			buf[++j] = "0123456789abcdef"[((unsigned char)array[i]) / 16];
-			buf[++j] = "0123456789abcdef"[((unsigned int)array[i++]) % 16];
-			if (remaining-- == 0)
-				return ;
-			buf[++j] = "0123456789abcdef"[((unsigned char)array[i]) / 16];
-			buf[++j] = "0123456789abcdef"[((unsigned int)array[i++]) % 16];
-			j++;
+		if (rem-- == 0)
+			return ;
+		buf[++j] = "0123456789abcdef"[((unsigned char)array[i]) / 16];
+		buf[++j] = "0123456789abcdef"[((unsigned int)array[i++]) % 16];
+		if (rem-- == 0)
+			return ;
+		buf[++j] = "0123456789abcdef"[((unsigned char)array[i]) / 16];
+		buf[++j] = "0123456789abcdef"[((unsigned int)array[i++]) % 16];
+		j++;
 	}
 }
 
@@ -78,7 +78,7 @@ void	print_line(char *address, int remaining)
 	if (remaining >= 16)
 		write_char_array(address, 16);
 	else
-	write_char_array(address, remaining);
+		write_char_array(address, remaining);
 }
 
 void	*ft_print_memory(void *addr, int size)
