@@ -6,10 +6,9 @@
 /*   By: digallar <digallar@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:03:56 by digallar          #+#    #+#             */
-/*   Updated: 2022/08/24 15:16:52 by digallar         ###   ########.fr       */
+/*   Updated: 2022/09/26 12:06:54 by digallar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
 
 int	ft_strcmp(char *s1, char *s2)
 {
